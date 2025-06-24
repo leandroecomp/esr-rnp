@@ -53,6 +53,39 @@ kind version 0.29.0
 > Helpful advice for doing things better or more easily.
 
 ## Provisionando cluster Kubernets
+
+Arquivo de configuração `kind-3-nodes.yml` de criação do cluster:
+```
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker
+  - role: worker
+```
+
+```
+~ # kind create cluster --config kind-3-nodes.yml
+~ # kind get clusters
+kind-3-nodes
+```
+```
+~ # kubectl get nodes
+NAME                         STATUS   ROLES           AGE   VERSION
+kind-3-nodes-control-plane   Ready    control-plane   29h   v1.33.1
+kind-3-nodes-worker          Ready    <none>          29h   v1.33.1
+kind-3-nodes-worker2         Ready    <none>          29h   v1.33.1
+kind-3-nodes-worker3         Ready    <none>          29h   v1.33.1
+```
 ## Criando uma imagem Docker
+```
+FROM nginx:latest
+
+RUN apt update && apt upgrade -y
+
+COPY files/ /
+```
+
 ## Fazendo o deploy da aplicação
 
