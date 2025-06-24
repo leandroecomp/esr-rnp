@@ -86,6 +86,11 @@ RUN apt update && apt upgrade -y
 
 COPY files/ /
 ```
-
+```
+docker login
+docker build -t nginx-custom
+docker tag nginx-custom leandroecomp/nginx-custom
+docker push leandroecomp/nginx-custom
+```
 ## Fazendo o deploy da aplicação
 
