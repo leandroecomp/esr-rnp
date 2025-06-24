@@ -26,7 +26,7 @@
 
 ```
 ~ # apt-get update
-~ # apt-get install -y apt-transport-https ca-certificates curl gnupg
+~ # apt-get install -y apt-transport-https gnupg
 ~ # curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key \
     | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 ~ # chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
