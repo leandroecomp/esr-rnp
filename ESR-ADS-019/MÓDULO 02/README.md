@@ -146,5 +146,13 @@ spec:
 namespace/production created
 deployment.apps/nginx-deployment created
 service/nginx-service created
-
 ```
+- Ativando encaminhamento de porta temporário:
+```
+~# kubectl port-forward --address 0.0.0.0,:: -n production services/nginx-service 80:80
+Forwarding from 0.0.0.0:80 -> 80
+Forwarding from [::]:80 -> 80
+```
+- Acessando a aplicação
+
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
