@@ -50,7 +50,7 @@ kind version 0.29.0
 ```
 
 > [!TIP]
-> Helpful advice for doing things better or more easily.
+> Considere instalar o pacote `bash-completion` para facilitar o uso do `docker`, `kubectl` e `kind`.
 
 ## Provisionando cluster Kubernets
 
