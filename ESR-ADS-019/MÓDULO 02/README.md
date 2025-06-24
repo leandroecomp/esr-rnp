@@ -49,6 +49,9 @@ Kustomize Version: v5.6.0
 kind version 0.29.0
 ```
 
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
 ## Provisionando cluster Kubernets
 ## Criando uma imagem Docker
 ## Fazendo o deploy da aplicação
