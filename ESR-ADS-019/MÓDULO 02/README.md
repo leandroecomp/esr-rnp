@@ -66,21 +66,21 @@ nodes:
 ```
 
 ```
-~ # kind create cluster --config kind-3-nodes.yml
+~ # kind create cluster --config cluster-3-nodes.yml
 ~ # kind get clusters
-kind-3-nodes
+cluster-3-nodes
 ```
 ```
 ~ # kubectl get nodes
-NAME                         STATUS   ROLES           AGE   VERSION
-kind-3-nodes-control-plane   Ready    control-plane   29h   v1.33.1
-kind-3-nodes-worker          Ready    <none>          29h   v1.33.1
-kind-3-nodes-worker2         Ready    <none>          29h   v1.33.1
-kind-3-nodes-worker3         Ready    <none>          29h   v1.33.1
+NAME                            STATUS   ROLES           AGE   VERSION
+cluster-3-nodes-control-plane   Ready    control-plane   20m   v1.33.1
+cluster-3-nodes-worker          Ready    <none>          20m   v1.33.1
+cluster-3-nodes-worker2         Ready    <none>          20m   v1.33.1
+cluster-3-nodes-worker3         Ready    <none>          20m   v1.33.1
 ```
 ## Criando uma imagem Docker
 
-Criando `Dockerfile` para uso da imagem do Nginx com uma página customizada:
+- Criando `Dockerfile` para uso da imagem do Nginx com uma página customizada:
 ```
 FROM nginx:latest
 
@@ -88,6 +88,7 @@ RUN apt update && apt upgrade -y
 
 COPY files/ /
 ```
+- Criando a imagem e armazenando no Docker.io:
 ```
 docker login
 docker build -t nginx-custom
@@ -95,4 +96,55 @@ docker tag nginx-custom leandroecomp/nginx-custom
 docker push leandroecomp/nginx-custom
 ```
 ## Fazendo o deploy da aplicação
+Criando o arquivo `nginx-app.yaml`declarando `namespace`, `service` e `deployment` (bem como informações da imagem Docker):
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: production
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: leandroecomp/nginx-custom
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: production
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+```
+- Fazendo o _deploy_ da aplicação:
+```
+~ # kubectl create -f nginx-app.yaml
+namespace/production created
+deployment.apps/nginx-deployment created
+service/nginx-service created
+
+```
