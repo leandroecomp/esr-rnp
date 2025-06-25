@@ -155,4 +155,4 @@ Forwarding from [::]:80 -> 80
 ```
 - Acessando a aplicação
 
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://github.com/leandroecomp/esr-rnp/blob/918be508f7cc47304547e96e6a18fc2bfcb590f3/ESR-ADS-019/tela.png) 
+![Screenshot da aplicação teste.](tela.png)
