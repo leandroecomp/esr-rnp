@@ -66,7 +66,21 @@ nodes:
 ```
 
 ```
-~ # kind create cluster --config cluster-3-nodes.yml
+~ # kind create cluster cluster-3-nodes --config cluster-3-nodes.yml
+Creating cluster "cluster-3-nodes" ...
+ ✓ Ensuring node image (kindest/node:v1.33.1) 🖼
+ ✓ Preparing nodes 📦 📦 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+ ✓ Joining worker nodes 🚜
+Set kubectl context to "kind-cluster-3-nodes"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-cluster-3-nodes
+
+Thanks for using kind! 😊
 ~ # kind get clusters
 cluster-3-nodes
 ```
@@ -76,7 +90,6 @@ NAME                            STATUS   ROLES           AGE   VERSION
 cluster-3-nodes-control-plane   Ready    control-plane   20m   v1.33.1
 cluster-3-nodes-worker          Ready    <none>          20m   v1.33.1
 cluster-3-nodes-worker2         Ready    <none>          20m   v1.33.1
-cluster-3-nodes-worker3         Ready    <none>          20m   v1.33.1
 ```
 ## Criando uma imagem Docker
 
@@ -110,7 +123,7 @@ metadata:
   name: nginx-deployment
   namespace: production
 spec:
-  replicas: 4
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
