@@ -54,7 +54,7 @@ kind version 0.29.0
 
 ## Provisionando cluster Kubernets
 
-Arquivo de configuração ` cluster-3-nodes.yml` de criação do cluster:
+Arquivo de configuração `cluster-3-nodes.yml` de criação do cluster:
 ```
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
