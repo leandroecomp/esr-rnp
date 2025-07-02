@@ -111,6 +111,7 @@ spec:
   template:
 ...
     spec:
+...
       tolerations:
       - key: "hardware"
         operator: "Equal"
@@ -126,6 +127,7 @@ spec:
   template:
 ...
     spec:
+...
       tolerations:
       - key: "hardware"
         operator: "Equal"
