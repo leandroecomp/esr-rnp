@@ -5,6 +5,7 @@
 - Deixar o node acima indisponivel;
 - Observar o comportamento da ap, para qual node ela foi alocada;
 - Restabelecer o node.
+---
 
 Para esta tarefa foi utilizado o mesmo procedimento do [MÓDULO 02](https://github.com/leandroecomp/esr-rnp/edit/main/ESR-ADS-019/M%C3%93DULO%2002), com um cluster de 3 nodes e uma aplicação web no Nginx.
 
