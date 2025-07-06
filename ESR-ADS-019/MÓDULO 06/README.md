@@ -74,3 +74,18 @@ kubectl create secret docker-registry registry-secret \
 --docker-username=master \
 --docker-password=blaster
 ```
+
+```
+kubectl create deploy private-app --image=registry.contorq.com:30500/nginx-custom --replicas=2
+```
+Adicionar na seção `.spec.template.spec.imagePullSecrets`:
+
+```yaml
+imagePullSecrets:
+- name: registry-secret
+```
+```
+kubectl get deploy private-app
+NAME         READY UP-TO-DATE AVAILABLE AGE
+private-app  2/2   2          2         34m
+```
