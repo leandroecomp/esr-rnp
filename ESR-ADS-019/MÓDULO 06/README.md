@@ -30,3 +30,47 @@ writing new private key to 'certs/domain.key'
 ```
 cp certs/domain.crt /etc/docker/certs.d/registry.contorq.com:30500/ca.crt
 ```
+```
+~ # docker pull leandroecomp/nginx-custom
+Using default tag: latest
+latest: Pulling from leandroecomp/nginx-custom
+(...)
+Status: Downloaded newer image for leandroecomp/nginx-custom:latest
+docker.io/leandroecomp/nginx-custom:latest
+```
+
+```
+docker tag leandroecomp/nginx-custom:latest registry.contorq.com:30500/nginx-custom
+```
+
+```
+# docker login registry.contorq.com:30500
+Username: master
+Password: blaster
+(...)
+Login Succeeded
+```
+```
+# docker pull registry.contorq.com:30500/nginx-custom:latest
+latest: Pulling from leandroecomp/nginx-custom
+dad67da3f26b: Pull complete
+3b00567da964: Pull complete
+56b81cfa547d: Pull complete
+1bc5dc8b475d: Pull complete
+979e6233a40a: Pull complete
+d2a7ba8dbfee: Pull complete
+32e44235e1d5: Pull complete
+040898630440: Pull complete
+172a5a6467fc: Pull complete
+acf963027756: Pull complete
+Digest: sha256:1684f19262f73197eac6a9004c43a49107a42b8a85a06f96758ed91d65dbf479
+Status: Downloaded newer image for registry.contorq.com:30500/nginx-custom:latest
+registry.contorq.com:30500/nginx-custom:latest
+```
+
+```
+kubectl create secret docker-registry registry-secret \
+--docker-server=https://registry.contorq.com:30500 \
+--docker-username=master \
+--docker-password=blaster
+```
