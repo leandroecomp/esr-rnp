@@ -17,4 +17,12 @@ Generating a RSA private key
 ......................++++
 writing new private key to 'certs/domain.key'
 -----
+```
 ## Criando um deploy para usar umagem do registry privado;
+
+```
+~ #  mkdir -p /etc/docker/certs.d/registry.contorq.com:30500
+```
+```
+cp certs/domain.crt /etc/docker/certs.d/registry.contorq.com:30500/ca.crt
+```
