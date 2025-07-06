@@ -78,8 +78,9 @@ kubectl create secret docker-registry registry-secret \
 ```
 kubectl create deploy private-app --image=registry.contorq.com:30500/nginx-custom --replicas=2
 ```
-Adicionar na seção `.spec.template.spec.imagePullSecrets`:
-
+```
+kubectl create deploy private-app
+```
 ```yaml
 imagePullSecrets:
 - name: registry-secret
