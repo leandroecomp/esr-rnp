@@ -7,10 +7,14 @@
 ## Criando um registry privado
 
 ```
-~ # openssl req -newkey rsa:4096 -nodes -sha256 -keyout certs/domain.key
--subj "/C=BR/ST=PR/L=Foz do Iguaçu/O=Contorq/OU=IT/CN=registry.contorq.com" -x509 -days 365 \
--out certs/domain.crt -extensions EXT \
--config <( printf  "[dn]\nCN=registry.contorq.com\n[req]\ndistinguished_name \
+~ # mkdir -p ~/registry/{images,certs,auth}
+~ # cd ~/registry
+```
+
+```
+~ # openssl req -newkey rsa:4096 -nodes -sha256 -keyout certs/domain.key -subj "/C=BR/ST=PR/L=Foz do
+Iguaçu/O=Contorq/OU=IT/CN=registry.contorq.com" -x509 -days 365 -out certs/domain.crt -extensions EXT
+config <( printf  "[dn]\nCN=registry.contorq.com\n[req]\ndistinguished_name
 = dn\n[EXT]\nsubjectAltName=DNS:registry.contorq.com\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 Generating a RSA private key
 .........................................................++++
