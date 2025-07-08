@@ -63,7 +63,7 @@ spec:
 
 Observando a execução dos pods, percebemos que estão espalhados aleatoriamente pel pelos nodes:
 
-```bash
+```
 ~ # kubectl get pods -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,STATUS:.status.phase
 NAME                                 NODE              STATUS
 apache-deployment-5fd955856f-mw5rd   cluster-worker2   Running
@@ -78,7 +78,7 @@ nginx-deployment-96b9d695-htxs5      cluster-worker5   Running
 
 Adicionando `taints` de exigência de hardware aos nodes: 3 com `hardware=low` e 2 com `hardware=high`.
 Isso permitira que apenas pods com a correpondente tolerância sejam executados nestes nodes.
-```bash
+```
 ~ # kubectl taint nodes cluster-worker cluster-worker2  cluster-worker3 hardware=low:NoExecute
 node/cluster-worker tainted
 node/cluster-worker2 tainted
@@ -89,7 +89,7 @@ node/cluster-worker5 tainted
 ```
 Verificando os nodes vemos que estão agora todos pendentes já que nenhum deployment possui `tolerance` configurado.
 
-```bash
+```
 ~ # kubectl get pods -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,STATUS:.status.phase
 NAME                                 NODE     STATUS
 apache-deployment-5fd955856f-7bmpf   <none>   Pending
@@ -136,7 +136,7 @@ spec:
 ...
 ```
 Aplicando as novas configurações dos `deploymnents`
-```bash
+```
 ~ # kubectl apply -f nginx-deployment.yaml
 deployment.apps/nginx-deployment configured
 ~ # kubectl apply -f apache-deployment.yaml
@@ -145,7 +145,7 @@ deployment.apps/apache-deployment configured
 
 Verificamos agora que os pods do apache estão alocados em nodes que tains de alta capacide e o nginx nos demais nodes.
 
-```bash
+```
 ~ # kubectl get pods -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,STATUS:.status.phase
 NAME                                 NODE              STATUS
 apache-deployment-67d4dfb644-4gjpp   cluster-worker5   Running
