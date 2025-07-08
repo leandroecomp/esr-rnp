@@ -8,7 +8,7 @@
 ## Pacotes básicos
 
 ### Docker
-```bash
+```
 ~ # apt-get update
 ~ # apt-get install ca-certificates curl
 ~ # install -m 0755 -d /etc/apt/keyrings
@@ -25,7 +25,7 @@
 
 ### Kubectl
 
-```bash
+```
 ~ # apt-get update
 ~ # apt-get install -y apt-transport-https gnupg
 ~ # curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key \
@@ -42,7 +42,7 @@ Kustomize Version: v5.6.0
 ```
 
 ### KinD
-```bash
+```
 ~ # [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64 
 ~ # chmod +x ./kind
 ~ # mv ./kind /usr/local/bin/kind
@@ -51,7 +51,7 @@ kind version 0.29.0
 ```
 
 > [!TIP]
-> Considere instalar o pacote `bash-completion` para facilitar o uso do `docker`, `kubectl` e `kind`.
+> Considere instalar o pacote `-completion` para facilitar o uso do `docker`, `kubectl` e `kind`.
 
 ## Provisionando cluster Kubernets
 
@@ -66,7 +66,7 @@ nodes:
   - role: worker
 ```
 
-```bash
+```
 ~ # kind create cluster cluster-3-nodes --config cluster-3-nodes.yml
 Creating cluster "cluster-3-nodes" ...
  ✓ Ensuring node image (kindest/node:v1.33.1) 🖼
@@ -85,7 +85,7 @@ Thanks for using kind! 😊
 ~ # kind get clusters
 cluster-3-nodes
 ```
-```bash
+```
 ~ # kubectl get nodes
 NAME                            STATUS   ROLES           AGE   VERSION
 cluster-3-nodes-control-plane   Ready    control-plane   20m   v1.33.1
@@ -103,7 +103,7 @@ RUN apt update && apt upgrade -y
 COPY files/ /
 ```
 - Criando a imagem e armazenando no Docker.io:
-```bash
+```
 ~ # docker login
 ~ # docker build -t nginx-custom
 ~ # docker tag nginx-custom leandroecomp/nginx-custom
@@ -155,14 +155,14 @@ spec:
   type: LoadBalancer
 ```
 - Fazendo o _deploy_ da aplicação:
-```bash
+```
 ~ # kubectl create -f nginx-app.yaml
 namespace/production created
 deployment.apps/nginx-deployment created
 service/nginx-service created
 ```
 - Ativando encaminhamento de porta temporário:
-```bash
+```
 ~ # kubectl port-forward --address 0.0.0.0,:: -n production services/nginx-service 80:80
 Forwarding from 0.0.0.0:80 -> 80
 Forwarding from [::]:80 -> 80
