@@ -38,17 +38,17 @@ spec:
         - containerPort: 80
 ```
 Fazendo o deploy:
-```bash
+```
 ~ # kubectl apply -f nginx-deployment.yaml
 deployment.apps/nginx-deployment created
 ```
 Confirmando a versão da imagem do deployment:
-```bash
+```
 ~ # kubectl get deployment/nginx-deployment -o=jsonpath="{..image}{'\n'}"
 nginx:1.28.0
 ```
 Atualizando a versão do nginx e verificando o andamento do rollout:  
-```bash
+```
 ~ # kubectl set image deployments/nginx-deployment nginx=nginx:1.29 && kubectl rollout status deployment nginx-deployment
 deployment.apps/nginx-deployment image updated
 Waiting for deployment "nginx-deployment" rollout to finish: 0 out of 10 new replicas have been updated...
@@ -82,12 +82,12 @@ Waiting for deployment "nginx-deployment" rollout to finish: 1 old replicas are 
 deployment "nginx-deployment" successfully rolled out
 ```
 Verificado a versão atual
-```bash
+```
 ~ # kubectl get deployment/nginx-deployment -o=jsonpath="{..image}{'\n'}"
 nginx:1.29.0
 ```
 Fazendo roll back para a versão aterior e verificando o andamento do rollout:
-```bash
+```
 ~ # kubectl set image deployments/nginx-deployment nginx=nginx:1.28 && kubectl rollout status deployment nginx-deployment
 deployment.apps/nginx-deployment image updated
 Waiting for deployment "nginx-deployment" rollout to finish: 3 out of 10 new replicas have been updated...
@@ -117,6 +117,6 @@ Waiting for deployment "nginx-deployment" rollout to finish: 8 of 10 updated rep
 Waiting for deployment "nginx-deployment" rollout to finish: 9 of 10 updated replicas are available...
 deployment "nginx-deployment" successfully rolled out
 ```
-```bash
+```
 ~ # kubectl get deployment/nginx-deployment -o=jsonpath="{..image}{'\n'}"
 nginx:1.28.0
