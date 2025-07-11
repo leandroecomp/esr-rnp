@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: author
+spec:
+  selector:
+    matchLabels:
+      app: author
+  replicas: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: author
+    spec:
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+          effect: "NoSchedule"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - author
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: author
+          image: busybox
+          args:
+            - sleep
+            - "3600"
+          volumeMounts:
+          # - mountPath: /story
+          #    name: story-dir
+          - mountPath: /log
+            name: log-dir
+            subPathExpr: $(POD_NAME)
+          env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+      volumes:
+#        - name: story-dir
+#          persistentVolumeClaim:
+#            claimName: novel
+        - name: log-dir
+          persistentVolumeClaim:
+            claimName: events
