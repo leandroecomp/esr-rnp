@@ -44,7 +44,7 @@ docker tag leandroecomp/nginx-custom:latest registry.contorq.com:30500/nginx-cus
 ```
 
 ```console
-# docker login registry.contorq.com:30500
+docker login registry.contorq.com:30500
 Username: master
 Password: blaster
 (...)
