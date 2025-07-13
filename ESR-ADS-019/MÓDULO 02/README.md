@@ -95,7 +95,7 @@ cluster-3-nodes-worker2         Ready    <none>          20m   v1.33.1
 ## Criando uma imagem Docker
 
 - Criando `Dockerfile` para uso da imagem do Nginx com uma página customizada:
-```
+```dockerfile
 FROM nginx:latest
 
 RUN apt update && apt upgrade -y
