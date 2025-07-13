@@ -74,4 +74,4 @@ service/proxy-node created
 curl -s http://localhost:30880 | grep title
 <title>Welcome to nginx!</title>
 ```
-![Screenshot da aplicação teste.](tela.png)
+
