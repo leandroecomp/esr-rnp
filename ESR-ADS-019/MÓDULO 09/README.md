@@ -1,6 +1,8 @@
 Para que seja considerada entregue você deve anexar a esta atividade no AVA uma imagem (nos formatos .png ou .jpg) do seu navegador acessando o dashboard Kubernetes cluster monitoring (ID `3119` ou `6417`) via interface web do Grafana.
 
 ---
+
+`cadvisor.yaml`
 ```yaml
 kind: Namespace
 metadata:
@@ -110,6 +112,29 @@ spec:
       - hostPath:
           path: /dev/disk
         name: disk
+```
+
+`loki-grafana-nodeport.yaml`
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: grafana
+  labels:
+    app: loki-grafana-nodeport
+  name: loki-grafana-nodeport
+spec:
+  ports:
+  - name: "80"
+    nodePort: 30080
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/name: grafana
+  type: NodePort
 ```
 
 ![Screenshot da aplicação teste.](grafana1.png)
