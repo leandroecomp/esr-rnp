@@ -1,8 +1,5 @@
 
 
-
-
-
 ---
 ```YAML
 apiVersion: storage.k8s.io/v1
@@ -104,6 +101,56 @@ spec:
           persistentVolumeClaim:
             claimName: moodle-db-pvc
 ```
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: moodle-app-sc
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: moodle-app-pv
+  labels:
+    app: moodle-app
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 500Mi
+  local:
+    path: /pods/moodle/app
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - s2-node-1
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: moodle-app-sc
+```
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: moodle-app-pvc
+spec:
+  storageClassName: moodle-app-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  selector:
+    matchLabels:
+      use: moodle-app
+  volumeName: "moodle-app-pv"
+```
 ```YAML
 apiVersion: v1
 kind: Service
@@ -159,54 +206,4 @@ spec:
         - name: data-dir
           persistentVolumeClaim:
             claimName: moodle-app-pvc
-```
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: moodle-app-sc
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
-```
-```yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: moodle-app-pv
-  labels:
-    app: moodle-app
-spec:
-  accessModes:
-  - ReadWriteOnce
-  capacity:
-    storage: 500Mi
-  local:
-    path: /pods/moodle/app
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - s2-node-1
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: moodle-app-sc
-```
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: moodle-app-pvc
-spec:
-  storageClassName: moodle-app-sc
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 500Mi
-  selector:
-    matchLabels:
-      use: moodle-app
-  volumeName: "moodle-app-pv"
 ```
