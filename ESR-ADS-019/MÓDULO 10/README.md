@@ -4,7 +4,14 @@
 
 
 ---
-
+```YAML
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: moodle-db-sc
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+```
 ```YAML
 apiVersion: v1
 kind: PersistentVolume
@@ -61,14 +68,6 @@ spec:
   clusterIP: None
 ```
 ```YAML
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: moodle-db-sc
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
-
-```YAML
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -119,7 +118,6 @@ spec:
       targetPort: 8080
       nodePort: 30080  # Porta exposta no Node
 ```
-
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -162,7 +160,6 @@ spec:
           persistentVolumeClaim:
             claimName: moodle-app-pvc
 ```
-
 ```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -171,7 +168,6 @@ metadata:
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
-
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -197,7 +193,6 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: moodle-app-sc
 ```
-
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -215,9 +210,3 @@ spec:
       use: moodle-app
   volumeName: "moodle-app-pv"
 ```
-
-
-
-
-
-
