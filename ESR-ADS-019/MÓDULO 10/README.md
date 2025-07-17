@@ -14,3 +14,46 @@ spec:
       targetPort: 8080
       nodePort: 30080  # Porta exposta no Node
 ```
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moodle-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodle-app
+  template:
+    metadata:
+      labels:
+        app: moodle-app
+    spec:
+      containers:
+        - name: moodle
+          image: bitnami/moodle:5.0
+          env:
+            - name: MOODLE_DATABASE_TYPE
+              value: "mariadb"
+            - name: MOODLE_DATABASE_HOST
+              value: "moodle-db-svc"
+              # tem que ser nome do Service (sc) do mariadb
+            - name: MOODLE_DATABASE_PORT_NUMBER
+              value: "3306"
+            - name: MOODLE_DATABASE_NAME
+              value: "moodle"
+            - name: MOODLE_DATABASE_USER
+              value: "moodleuser"
+            - name: MOODLE_DATABASE_PASSWORD
+              value: "moodlepass"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: data-dir
+              mountPath: /bitnami/moodle
+      volumes:
+        - name: data-dir
+          persistentVolumeClaim:
+            claimName: moodle-app-pvc
+```
