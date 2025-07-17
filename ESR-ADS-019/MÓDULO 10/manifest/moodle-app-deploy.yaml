@@ -42,8 +42,6 @@ spec:
               value: "moodleuser"
             - name: MOODLE_DATABASE_PASSWORD
               value: "moodlepass"
-#            - name: MOODLE_HOST
-#              value: "192.168.68.20"
           ports:
             - containerPort: 8080
           volumeMounts:
