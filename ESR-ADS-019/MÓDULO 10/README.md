@@ -1,5 +1,110 @@
 
+
+
+
+
 ---
+
+```YAML
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: moodle-db-pv
+  labels:
+    app: moodle-db
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 500Mi
+  local:
+    path: /pods/moodle/db
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - s2-node-1
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: moodle-db-sc
+```
+```YAML
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: moodle-db-pvc
+spec:
+  storageClassName: moodle-db-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  selector:
+    matchLabels:
+      use: moodle-db
+  volumeName: "moodle-db-pv"
+```
+```YAML
+apiVersion: v1
+kind: Service
+metadata:
+  name: moodle-db-svc
+spec:
+  selector:
+    app: mariadb
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None
+```
+```YAML
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: moodle-db-sc
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+
+```YAML
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moodle-db-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+        - name: mariadb
+          image: mariadb:10.11
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "rootpass"
+            - name: MYSQL_DATABASE
+              value: "moodle"
+            - name: MYSQL_USER
+              value: "moodleuser"
+            - name: MYSQL_PASSWORD
+              value: "moodlepass"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: data-dir
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: data-dir
+          persistentVolumeClaim:
+            claimName: moodle-db-pvc
+```
 ```YAML
 apiVersion: v1
 kind: Service
@@ -110,3 +215,9 @@ spec:
       use: moodle-app
   volumeName: "moodle-app-pv"
 ```
+
+
+
+
+
+
