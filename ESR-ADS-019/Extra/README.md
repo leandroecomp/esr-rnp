@@ -5,7 +5,7 @@
 ![Deploy do Moodle em cluster Kubernetes.](diagrama.png)
 
 <div style="text-align: center;">
-    <img width="100%" src="diagrama.png">
+    <img width="50%" src="diagrama.png">
 </div>
 
 ```YAML
