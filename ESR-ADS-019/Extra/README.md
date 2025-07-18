@@ -7,7 +7,9 @@
 <div style="text-align: center;">
     <img width="50%" src="diagrama.png">
 </div>
-
+<div style="text-align: center;">
+<img src="diagrama.png" alt="Deploy do Moodle em cluster Kubernetes." style="max-width: 100%;">
+</div>
 ```YAML
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
