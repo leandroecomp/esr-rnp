@@ -4,6 +4,9 @@
 
 ![Deploy do Moodle em cluster Kubernetes.](diagrama.png)
 
+<div style="text-align: center;">
+    <img width="100%" src="diagrama.png">
+</div>
 
 ```YAML
 apiVersion: storage.k8s.io/v1
