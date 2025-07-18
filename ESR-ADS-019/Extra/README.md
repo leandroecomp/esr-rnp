@@ -1,10 +1,10 @@
 
 
 ---
+<p align="center">
+<img  width="50%" src="diagrama.png">
+</p>
 
-<div style="text-align: center;">
-    <img width="50%" src="diagrama.png">
-</div>
 
 ```YAML
 apiVersion: storage.k8s.io/v1
