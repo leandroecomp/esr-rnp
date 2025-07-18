@@ -59,13 +59,6 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
-        resources:
-        #  limits:
-        #    cpu: 300m
-        #    memory: 2000Mi
-        #  requests:
-        #    cpu: 150m
-        #    memory: 200Mi
         volumeMounts:
         - mountPath: /rootfs
           name: rootfs
