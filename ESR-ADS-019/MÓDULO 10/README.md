@@ -1,6 +1,10 @@
 
 
 ---
+
+![Deploy do Moodle em cluster Kubernetes.](diagrama.png)
+
+
 ```YAML
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
