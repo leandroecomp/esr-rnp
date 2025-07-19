@@ -13,7 +13,7 @@ Adicionando e atualizando o repositório Bitnami:
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 ```
-Criamos um arquivo `values.yaml` apenas desabilitando a persistência de dados. Isso Evita que o `PVC` do _Chart_ busque por um `PV`.
+Criamos um arquivo `values.yaml` apenas desabilitando a persistência de dados que vem habilitadada por padrão (veja [link](https://artifacthub.io/packages/helm/bitnami/mysql?modal=values&path=primary.persistence.enabled)). Isso Evita que o `PVC` do _Chart_ busque por um `PV`.
 ```yaml
 primary:
   persistence:
