@@ -11,8 +11,8 @@ helm completion bash > /etc/bash_completion.d/helm
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 ```
-`values.yaml`
 
+Criamos um arquivo `values.yaml` apenas desabilitando a persistência de dados. Isso Evita que o `PVC` do _Chart_ busque por um `PV`.
 ```yaml
 primary:
   persistence:
