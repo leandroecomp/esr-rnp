@@ -1,10 +1,10 @@
 ---
 
-```
+```console
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 helm completion bash > /etc/bash_completion.d/helm
 ```
-```
+```console
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 ```
