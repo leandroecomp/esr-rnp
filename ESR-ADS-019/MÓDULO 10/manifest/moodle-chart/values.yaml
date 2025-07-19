@@ -1,0 +1,24 @@
+mariadb:
+  image: bitnami/mariadb:latest
+  service:
+    type: ClusterIP
+  env:
+    MARIADB_ROOT_PASSWORD: rootpass
+    MARIADB_DATABASE: moodledb
+    MARIADB_USER: moodle
+    MARIADB_PASSWORD: moodlepass
+  port: 3306
+
+
+moodle:
+  image: bitnami/moodle:5.0
+  service:
+    type: NodePort
+    port: 8080
+  env:
+    MOODLE_DATABASE_TYPE: mariadb
+    MOODLE_DATABASE_HOST: mariadb
+    MOODLE_DATABASE_NAME: moodledb
+    MOODLE_DATABASE_USER: moodle
+    MOODLE_DATABASE_PASSWORD: moodlepass
+  nodePort: 30080
