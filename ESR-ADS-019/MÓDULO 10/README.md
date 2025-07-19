@@ -3,7 +3,7 @@
 - Fazer o deploy com as novas configurações
 
 ---
-Fazendo a nstalação do Helm:
+Fazendo a instalação do Helm:
 ```console
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 helm completion bash > /etc/bash_completion.d/helm
