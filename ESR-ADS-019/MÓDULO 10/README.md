@@ -1,8 +1,12 @@
 ---
-
-
+`values.yaml`
+```yaml
+primary:
+  persistence:
+    enabled: false
+```
 ```console
-helm install mysql bitnami/mysql -f mysql_values.yaml
+helm install mysql bitnami/mysql -f values.yaml
 NAME: mysql
 LAST DEPLOYED: Fri Jul 18 23:06:32 2025
 NAMESPACE: default
