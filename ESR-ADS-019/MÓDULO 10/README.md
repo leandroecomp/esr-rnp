@@ -1,10 +1,12 @@
 ---
 `values.yaml`
+
 ```yaml
 primary:
   persistence:
     enabled: false
 ```
+
 ```console
 helm install mysql bitnami/mysql -f values.yaml
 NAME: mysql
