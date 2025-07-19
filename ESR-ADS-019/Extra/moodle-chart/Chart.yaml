@@ -1,0 +1,6 @@
+apiVersion: v2
+name: moodle-chart
+description: A Helm chart for deploying Moodle 5 with MariaDB
+type: application
+version: 1.0.0
+appVersion: "5.0"
