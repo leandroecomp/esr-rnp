@@ -38,4 +38,3 @@ spec:
 #        - name: data-dir
 #          persistentVolumeClaim:
 #            claimName: moodle-app-pvc
-#####################################
