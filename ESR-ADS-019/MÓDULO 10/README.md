@@ -3,22 +3,23 @@
 - Fazer o deploy com as novas configurações
 
 ---
+Fazendo a nstalação do Helm:
 ```console
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 helm completion bash > /etc/bash_completion.d/helm
 ```
+Adicionando e atualizando o repositório Bitnami:
 ```console
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 ```
-
 Criamos um arquivo `values.yaml` apenas desabilitando a persistência de dados. Isso Evita que o `PVC` do _Chart_ busque por um `PV`.
 ```yaml
 primary:
   persistence:
     enabled: false
 ```
-
+Fazendo o deploy via Helm:
 ```console
 helm install mysql bitnami/mysql -f values.yaml
 NAME: mysql
@@ -33,17 +34,17 @@ CHART VERSION: 13.0.4
 APP VERSION: 9.3.0
 ...
 ```
-
+Verificando o estado do `pod` do Mysql:
 ```console
 kubectl get pods
 NAME      READY   STATUS    RESTARTS   AGE
 mysql-0   1/1     Running   0          54s
 ```
-
+Obtendo a senha de root:
 ```console
 MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default mysql -o jsonpath="{.data.mysql-root-password}" | base64 -d)
 ```
-
+Criando um container para acesso à aplicação:
 ```console
 kubectl run mysql-client \
 --rm --tty -i --restart='Never' \
@@ -54,7 +55,7 @@ kubectl run mysql-client \
 If you don't see a command prompt, try pressing enter.
 I have no name!@mysql-client:/$
 ```
-
+Acessando o Mysql server via Mysql client:
 ```console
 I have no name!@mysql-client:/$ mysql -h mysql.default.svc.cluster.local -uroot -p"$MYSQL_ROOT_PASSWORD"
 Welcome to the MySQL monitor.  Commands end with ; or \g.
