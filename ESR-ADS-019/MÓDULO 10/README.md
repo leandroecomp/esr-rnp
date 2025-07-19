@@ -57,7 +57,7 @@ I have no name!@mysql-client:/$
 ```
 Acessando o Mysql server via Mysql client:
 ```console
-I have no name!@mysql-client:/$ mysql -h mysql.default.svc.cluster.local -uroot -p"$MYSQL_ROOT_PASSWORD"
+mysql -h mysql.default.svc.cluster.local -uroot -p"$MYSQL_ROOT_PASSWORD"
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 41
 Server version: 9.3.0 Source distribution
