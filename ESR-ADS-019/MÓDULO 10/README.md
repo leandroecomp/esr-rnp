@@ -1,9 +1,8 @@
----
-
 - Via Helm fazer o deploy de uma app a escolher.
 - Modificar algum parametro de coinfiguração na app (values.yaml)
 - Fazer o deploy com as novas configurações
 
+---
 ```console
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 helm completion bash > /etc/bash_completion.d/helm
