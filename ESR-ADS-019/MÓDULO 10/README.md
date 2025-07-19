@@ -27,7 +27,12 @@ MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default mysql -o jsonpath="
 ```
 
 ```console
-kubectl run mysql-client --rm --tty -i --restart='Never' --image  docker.io/bitnami/mysql:9.3.0-debian-12-r3 --namespace default --env MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD --command -- bash
+kubectl run mysql-client \
+--rm --tty -i --restart='Never' \
+--image  docker.io/bitnami/mysql:9.3.0-debian-12-r3 \
+--namespace default \
+--env MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
+--command -- bash
 If you don't see a command prompt, try pressing enter.
 I have no name!@mysql-client:/$
 ```
