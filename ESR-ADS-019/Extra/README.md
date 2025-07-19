@@ -5,6 +5,7 @@
 <img  width="50%" src="diagrama.png">
 </p>
 
+
 `moodle-db-sc.yaml`
 ```YAML
 apiVersion: storage.k8s.io/v1
