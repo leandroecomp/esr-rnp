@@ -85,10 +85,10 @@ spec:
               value: "moodlepass"
           ports:
             - containerPort: 3306
-          volumeMounts:
-            - name: data-dir
-              mountPath: /var/lib/mysql
-      volumes:
-        - name: data-dir
-          persistentVolumeClaim:
-            claimName: moodle-db-pvc
+#          volumeMounts:
+#            - name: data-dir
+#              mountPath: /var/lib/mysql
+#      volumes:
+#        - name: data-dir
+#          persistentVolumeClaim:
+#            claimName: moodle-db-pvc
