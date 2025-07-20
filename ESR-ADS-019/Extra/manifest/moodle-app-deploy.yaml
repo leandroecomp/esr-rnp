@@ -44,14 +44,13 @@ spec:
               value: "moodlepass"
           ports:
             - containerPort: 8080
-          volumeMounts:
-            - name: data-dir
-              mountPath: /bitnami/moodle
-      volumes:
-        - name: data-dir
-          persistentVolumeClaim:
-            claimName: moodle-app-pvc
-
+#          volumeMounts:
+#            - name: data-dir
+#              mountPath: /bitnami/moodle
+#      volumes:
+#        - name: data-dir
+#          persistentVolumeClaim:
+#            claimName: moodle-app-pvc
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -59,7 +58,6 @@ metadata:
   name: moodle-app-sc
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
-
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -84,7 +82,6 @@ spec:
           - s2-node-1
   persistentVolumeReclaimPolicy: Retain
   storageClassName: moodle-app-sc
-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
