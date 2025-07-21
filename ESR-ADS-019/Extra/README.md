@@ -2,7 +2,7 @@
 
 ---
 <p align="center">
-<img  width="50%" src="diagrama.png">
+<img  width="50%" src="moodle.svg">
 </p>
 
 
