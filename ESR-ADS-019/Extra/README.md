@@ -5,7 +5,7 @@
 <img  width="50%" src="moodle.svg">
 </p>
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -19,7 +19,7 @@ spec:
       targetPort: {{ .Values.moodle.ports.containerPort }}
       nodePort: {{ .Values.moodle.service.nodePort }}  # Porta exposta no Node
    
----yaml
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
