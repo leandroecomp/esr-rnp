@@ -1,8 +1,8 @@
 # Módulo 10
 
-Via Helm fazer o deploy de uma app a escolher;
-Modificar algum parametro de coinfiguração na app (values.yaml);
-Fazer o deploy com as novas configurações.
+- Via Helm fazer o deploy de uma app a escolher;
+- Modificar algum parametro de coinfiguração na app (values.yaml);
+- Fazer o deploy com as novas configurações.
 
 ---
 <p align="center">
