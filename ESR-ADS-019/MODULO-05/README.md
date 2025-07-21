@@ -1,4 +1,5 @@
 # Módulo 5
+
 - Criar um deployment para uma app qualquer;
 - Configurar o deployment para instanciar 10 replicas;
 - Fazer o deploy; 
@@ -6,6 +7,7 @@
 - Trocar a versão da image da app;
 - Reprovisionar e verificar andamento do rollout;
 - Reverter a app para a versão anterior e  verificar o andamento do rollout.
+
 ---
 
 Criando um deployment para do nginx com 10 instâncias:
