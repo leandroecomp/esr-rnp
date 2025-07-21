@@ -1,0 +1,29 @@
+mariadb:
+  image: mariadb:10.11
+  service:
+    type: ClusterIP
+    port: '3306'
+    targetPort: '3306'
+  env:
+    MARIADB_ROOT_PASSWORD: rootpass
+    MARIADB_DATABASE: moodle
+    MARIADB_USER: moodleuser
+    MARIADB_PASSWORD: moodlepass
+  ports:
+    containerPort: '3306'
+
+moodle:
+  image: bitnami/moodle:5.0
+  service:
+    type: NodePort
+    port: '8080'
+    nodePort: '30080'
+  env:
+    MOODLE_DATABASE_TYPE: mariadb
+    MOODLE_DATABASE_HOST: moodle-db-svc
+    MOODLE_DATABASE_PORT_NUMBER: '3306'
+    MOODLE_DATABASE_NAME: moodle
+    MOODLE_DATABASE_USER: moodleuser
+    MOODLE_DATABASE_PASSWORD: moodlepass
+  ports: 
+    containerPort: '8080'

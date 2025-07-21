@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: moodle-db-svc
+spec:
+  selector:
+    app: moodle-db
+  type: {{ .Values.mariadb.service.type }}
+  ports:
+    - port: {{ .Values.mariadb.service.port }}
+      targetPort: {{ .Values.mariadb.service.targetPort }}
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moodle-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodle-db
+  template:
+    metadata:
+      labels:
+        app: moodle-db
+    spec:
+      containers:
+        - name: mariadb
+          image: {{ .Values.mariadb.image }}
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              value: {{ .Values.mariadb.env.MARIADB_ROOT_PASSWORD }}              
+            - name: MARIADB_DATABASE
+              value: {{ .Values.mariadb.env.MARIADB_DATABASE }}
+            - name: MARIADB_USER
+              value: {{ .Values.mariadb.env.MARIADB_USER }}
+            - name: MARIADB_PASSWORD
+              value: {{ .Values.mariadb.env.MARIADB_PASSWORD }}
+          ports:
+            - containerPort: {{ .Values.mariadb.ports.containerPort }}

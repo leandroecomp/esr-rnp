@@ -1,74 +1,137 @@
-- Via Helm fazer o deploy de uma app a escolher.
-- Modificar algum parametro de coinfiguração na app (values.yaml)
-- Fazer o deploy com as novas configurações
+
 
 ---
-Fazendo a instalação do Helm:
-```console
-curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-helm completion bash > /etc/bash_completion.d/helm
-```
-Adicionando e atualizando o repositório Bitnami:
-```console
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
-```
-Criamos um arquivo `values.yaml` apenas desabilitando a persistência de dados que vem habilitadada por padrão (veja [link](https://artifacthub.io/packages/helm/bitnami/mysql?modal=values&path=primary.persistence.enabled)). Isso Evita que o `PVC` do _Chart_ busque por um `PV`.
+<p align="center">
+<img  width="50%" src="moodle.svg">
+</p>
+
+
+
+`values.yaml`
 ```yaml
-primary:
-  persistence:
-    enabled: false
-```
-Fazendo o deploy via Helm:
-```console
-helm install mysql bitnami/mysql -f values.yaml
-NAME: mysql
-LAST DEPLOYED: Fri Jul 18 23:06:32 2025
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-NOTES:
-CHART NAME: mysql
-CHART VERSION: 13.0.4
-APP VERSION: 9.3.0
-...
-```
-Verificando o estado do `pod` do Mysql:
-```console
-kubectl get pods
-NAME      READY   STATUS    RESTARTS   AGE
-mysql-0   1/1     Running   0          54s
-```
-Obtendo a senha de root:
-```console
-MYSQL_ROOT_PASSWORD=$(kubectl get secret --namespace default mysql -o jsonpath="{.data.mysql-root-password}" | base64 -d)
-```
-Criando um container para acesso à aplicação:
-```console
-kubectl run mysql-client \
---rm --tty -i --restart='Never' \
---image  docker.io/bitnami/mysql:9.3.0-debian-12-r3 \
---namespace default \
---env MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
---command -- bash
-If you don't see a command prompt, try pressing enter.
-I have no name!@mysql-client:/$
-```
-Acessando o Mysql server via Mysql client:
-```console
-mysql -h mysql.default.svc.cluster.local -uroot -p"$MYSQL_ROOT_PASSWORD"
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 41
-Server version: 9.3.0 Source distribution
+mariadb:
+  image: mariadb:10.11
+  service:
+    type: ClusterIP
+    port: '3306'
+    targetPort: '3306'
+  env:
+    MARIADB_ROOT_PASSWORD: rootpass
+    MARIADB_DATABASE: moodle
+    MARIADB_USER: moodleuser
+    MARIADB_PASSWORD: moodlepass
+  ports:
+    containerPort: '3306'
 
-Copyright (c) 2000, 2025, Oracle and/or its affiliates.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql>
+moodle:
+  image: bitnami/moodle:5.0
+  service:
+    type: NodePort
+    port: '8080'
+    nodePort: '30080'
+  env:
+    MOODLE_DATABASE_TYPE: mariadb
+    MOODLE_DATABASE_HOST: moodle-db-svc
+    MOODLE_DATABASE_PORT_NUMBER: '3306'
+    MOODLE_DATABASE_NAME: moodle
+    MOODLE_DATABASE_USER: moodleuser
+    MOODLE_DATABASE_PASSWORD: moodlepass
+  ports: 
+    containerPort: '8080'
 ```
+`moodle-db-deploy.yaml`
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: moodle-db-svc
+spec:
+  selector:
+    app: moodle-db
+  type: {{ .Values.mariadb.service.type }}
+  ports:
+    - port: {{ .Values.mariadb.service.port }}
+      targetPort: {{ .Values.mariadb.service.targetPort }}
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moodle-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodle-db
+  template:
+    metadata:
+      labels:
+        app: moodle-db
+    spec:
+      containers:
+        - name: mariadb
+          image: {{ .Values.mariadb.image }}
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              value: {{ .Values.mariadb.env.MARIADB_ROOT_PASSWORD }}              
+            - name: MARIADB_DATABASE
+              value: {{ .Values.mariadb.env.MARIADB_DATABASE }}
+            - name: MARIADB_USER
+              value: {{ .Values.mariadb.env.MARIADB_USER }}
+            - name: MARIADB_PASSWORD
+              value: {{ .Values.mariadb.env.MARIADB_PASSWORD }}
+          ports:
+            - containerPort: {{ .Values.mariadb.ports.containerPort }}
+```
+`moodle-app-deploy.yaml`
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: moodle-app-svc
+spec:
+  selector:
+    app: moodle-app
+  type: {{ .Values.moodle.service.type }}
+  ports:
+    - port: {{ .Values.moodle.service.port }}
+      targetPort: {{ .Values.moodle.ports.containerPort }}
+      nodePort: {{ .Values.moodle.service.nodePort }}  # Porta exposta no Node
+   
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moodle-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moodle-app
+  template:
+    metadata:
+      labels:
+        app: moodle-app
+    spec:
+      containers:
+        - name: moodle
+          image: {{ .Values.moodle.image }}
+          env:
+            - name: MOODLE_DATABASE_TYPE
+              value: {{ .Values.moodle.env.MOODLE_DATABASE_TYPE }}            
+            - name: MOODLE_DATABASE_HOST
+              value: {{ .Values.moodle.env.MOODLE_DATABASE_HOST }}            
+            - name: MOODLE_DATABASE_PORT_NUMBER
+              value: '3306'
+            - name: MOODLE_DATABASE_NAME
+              value: {{ .Values.moodle.env.MOODLE_DATABASE_NAME }}                        
+            - name: MOODLE_DATABASE_USER
+              value: {{ .Values.moodle.env.MOODLE_DATABASE_USER }}              
+            - name: MOODLE_DATABASE_PASSWORD
+              value: {{ .Values.moodle.env.MOODLE_DATABASE_PASSWORD }}              
+          ports:
+            - containerPort: {{ .Values.moodle.ports.containerPort }}
+```
+<p align="center">
+<img  width="50%" src="moodle_tela.png">
+</p>
