@@ -5,6 +5,7 @@
 <img  width="50%" src="moodle.svg">
 </p>
 
+`values.yaml`
 ```yaml
 mariadb:
   image: mariadb:10.11
@@ -36,7 +37,7 @@ moodle:
   ports: 
     containerPort: '8080'
 ```
-
+`moodle-db-deploy.yaml`
 ```yaml
 apiVersion: v1
 kind: Service
@@ -80,7 +81,7 @@ spec:
           ports:
             - containerPort: {{ .Values.mariadb.ports.containerPort }}
 ```
-
+`moodle-app-deploy.yaml`
 ```yaml
 apiVersion: v1
 kind: Service
