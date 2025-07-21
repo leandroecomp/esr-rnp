@@ -5,6 +5,12 @@
 - Fazer o deploy com as novas configurações.
 
 ---
+
+<div style="text-align: center;">
+    <img width="70%" src="moodle.svg">
+</div>
+
+
 `values.yaml`
 ```yaml
 mariadb:
