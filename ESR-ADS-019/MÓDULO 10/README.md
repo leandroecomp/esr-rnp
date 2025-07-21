@@ -169,9 +169,9 @@ moodle 00:17:43.77 INFO  ==> Persisting Moodle installation
 moodle 00:18:16.21 INFO  ==> ** Moodle setup finished! **
 moodle 00:18:16.25 INFO  ==> ** Starting cron **
 moodle 00:18:16.32 INFO  ==> ** Starting Apache **
-[Mon Jul 21 00:18:16.714514 2025] [mpm_prefork:notice] [pid 1:tid 1] AH00163: Apache/2.4.64 (Unix) OpenSSL/3.0.16 configured -- resuming normal operations
-[Mon Jul 21 00:18:16.714816 2025] [core:notice] [pid 1:tid 1] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf -D FOREGROUND'
-
+[Mon Jul 21 00:18:16.714514 2025] [mpm_prefork:notice] [pid 1:tid 1] AH00163: Apache/2.4.64 (Unix) OpenSSL/3.0.16
+configured -- resuming normal operations [Mon Jul 21 00:18:16.714816 2025] [core:notice] [pid 1:tid 1] AH00094:
+Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf -D FOREGROUND'
 ```
 
 <p align="center">
