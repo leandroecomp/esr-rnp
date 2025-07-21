@@ -5,6 +5,8 @@
 <img  width="50%" src="moodle.svg">
 </p>
 
+
+
 `values.yaml`
 ```yaml
 mariadb:
@@ -130,3 +132,6 @@ spec:
           ports:
             - containerPort: {{ .Values.moodle.ports.containerPort }}
 ```
+<p align="center">
+<img  width="50%" src="moodle_tela.png">
+</p>
