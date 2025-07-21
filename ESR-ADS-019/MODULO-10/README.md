@@ -5,10 +5,9 @@
 - Fazer o deploy com as novas configurações.
 
 ---
+<p align="center">
+<img width="60%" src="moodle.svg"></p>
 
-<div style="text-align: center;">
-    <img width="70%" src="moodle.svg">
-</div>
 
 
 `values.yaml`
