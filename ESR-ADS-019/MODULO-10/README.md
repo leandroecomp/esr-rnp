@@ -136,7 +136,7 @@ spec:
 ```console
 helm install moodle helm
 ```
-```
+```console
 kubectl get pods
 NAME                          READY   STATUS    RESTARTS   AGE
 moodle-app-785556778f-wglb5   1/1     Running   0          165m
