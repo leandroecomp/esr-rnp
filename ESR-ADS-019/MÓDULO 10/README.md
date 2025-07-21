@@ -146,7 +146,10 @@ kubectl logs moodle-app-785556778f-wglb5 -f
 moodle 00:14:16.73 INFO  ==>
 moodle 00:14:16.73 INFO  ==> Welcome to the Bitnami moodle container
 moodle 00:14:16.74 INFO  ==> Subscribe to project updates by watching https://github.com/bitnami/containers
-moodle 00:14:16.75 INFO  ==> Did you know there are enterprise versions of the Bitnami catalog? For enhanced secure software supply chain features, unlimited pulls from Docker, LTS support, or application customization, see Bitnami Premium or Tanzu Application Catalog. See https://www.arrow.com/globalecs/na/vendors/bitnami/ for more information.
+moodle 00:14:16.75 INFO  ==> Did you know there are enterprise versions of the Bitnami catalog?
+For enhanced secure software supply chain features, unlimited pulls from Docker, LTS support,
+or application customization, see Bitnami Premium or Tanzu Application Catalog.
+See https://www.arrow.com/globalecs/na/vendors/bitnami/ for more information.
 moodle 00:14:16.75 INFO  ==>
 moodle 00:14:16.76 INFO  ==> ** Starting Moodle setup **
 moodle 00:14:16.89 INFO  ==> Generating sample certificates
