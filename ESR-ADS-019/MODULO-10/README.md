@@ -11,7 +11,10 @@
 `values.yaml`
 ```yaml
 mariadb:
-  image: mariadb:10.11
+  image: mariadb:10.11 
+
+
+  
   service:
     type: ClusterIP
     port: '3306'
