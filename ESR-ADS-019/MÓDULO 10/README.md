@@ -135,6 +135,41 @@ spec:
 ```console
 helm install moodle helm
 ```
+```
+kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+moodle-app-785556778f-wglb5   1/1     Running   0          165m
+moodle-db-6bc6d86c5-s5fx6     1/1     Running   0          165m
+```
+```console
+kubectl logs moodle-app-785556778f-wglb5 -f
+moodle 00:14:16.73 INFO  ==>
+moodle 00:14:16.73 INFO  ==> Welcome to the Bitnami moodle container
+moodle 00:14:16.74 INFO  ==> Subscribe to project updates by watching https://github.com/bitnami/containers
+moodle 00:14:16.75 INFO  ==> Did you know there are enterprise versions of the Bitnami catalog? For enhanced secure software supply chain features, unlimited pulls from Docker, LTS support, or application customization, see Bitnami Premium or Tanzu Application Catalog. See https://www.arrow.com/globalecs/na/vendors/bitnami/ for more information.
+moodle 00:14:16.75 INFO  ==>
+moodle 00:14:16.76 INFO  ==> ** Starting Moodle setup **
+moodle 00:14:16.89 INFO  ==> Generating sample certificates
+Certificate request self-signature ok
+subject=CN = example.com
+realpath: /bitnami/apache/conf: No such file or directory
+moodle 00:14:30.76 INFO  ==> Configuring Apache ServerTokens directive
+moodle 00:14:30.85 INFO  ==> Configuring PHP options
+moodle 00:14:30.87 INFO  ==> Setting PHP expose_php option
+moodle 00:14:30.91 INFO  ==> Setting PHP output_buffering option
+moodle 00:14:30.98 INFO  ==> Validating settings in MYSQL_CLIENT_* env vars
+moodle 00:14:31.01 INFO  ==> Validating settings in POSTGRESQL_CLIENT_* env vars
+moodle 00:14:31.32 INFO  ==> Ensuring Moodle directories exist
+moodle 00:14:31.42 INFO  ==> Trying to connect to the database server
+moodle 00:14:31.51 INFO  ==> Running Moodle install script
+moodle 00:17:43.77 INFO  ==> Persisting Moodle installation
+moodle 00:18:16.21 INFO  ==> ** Moodle setup finished! **
+moodle 00:18:16.25 INFO  ==> ** Starting cron **
+moodle 00:18:16.32 INFO  ==> ** Starting Apache **
+[Mon Jul 21 00:18:16.714514 2025] [mpm_prefork:notice] [pid 1:tid 1] AH00163: Apache/2.4.64 (Unix) OpenSSL/3.0.16 configured -- resuming normal operations
+[Mon Jul 21 00:18:16.714816 2025] [core:notice] [pid 1:tid 1] AH00094: Command line: '/opt/bitnami/apache/bin/httpd -f /opt/bitnami/apache/conf/httpd.conf -D FOREGROUND'
+
+```
 
 <p align="center">
 <img  width="50%" src="moodle_tela.png">
