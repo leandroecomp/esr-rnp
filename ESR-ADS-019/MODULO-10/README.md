@@ -8,8 +8,6 @@
 <p align="center">
 <img width="60%" src="moodle.svg"></p>
 
-
-
 `values.yaml`
 ```yaml
 mariadb:
