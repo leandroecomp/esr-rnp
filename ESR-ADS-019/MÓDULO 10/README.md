@@ -132,6 +132,10 @@ spec:
           ports:
             - containerPort: {{ .Values.moodle.ports.containerPort }}
 ```
+```console
+helm install moodle helm
+```
+
 <p align="center">
 <img  width="50%" src="moodle_tela.png">
 </p>
