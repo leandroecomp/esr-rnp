@@ -3,6 +3,9 @@
 - Via Helm fazer o deploy de uma app a escolher;
 - Modificar algum parametro de coinfiguração na app (values.yaml);
 - Fazer o deploy com as novas configurações.
+> [!TIP]
+> para fins de teste não é provisionado a persistência dos dado.
+
 ---
 
 <p align="center">
