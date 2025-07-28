@@ -3,8 +3,8 @@
 - Via Helm fazer o deploy de uma app a escolher;
 - Modificar algum parametro de coinfiguração na app (values.yaml);
 - Fazer o deploy com as novas configurações.
-
 ---
+
 <p align="center">
 <img width="60%" src="moodle.svg"></p>
 
@@ -12,9 +12,6 @@
 ```yaml
 mariadb:
   image: mariadb:10.11 
-
-
-  
   service:
     type: ClusterIP
     port: '3306'
@@ -26,7 +23,6 @@ mariadb:
     MARIADB_PASSWORD: moodlepass
   ports:
     containerPort: '3306'
-
 moodle:
   image: bitnami/moodle:5.0
   service:
@@ -43,7 +39,9 @@ moodle:
   ports: 
     containerPort: '8080'
 ```
+
 `moodle-db-deploy.yaml`
+
 ```yaml
 apiVersion: v1
 kind: Service
