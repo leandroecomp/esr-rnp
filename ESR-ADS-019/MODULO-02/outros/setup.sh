@@ -10,9 +10,7 @@ MYIP="$( ip -4 addr show ${MYIFACE} | grep -oP '(?<=inet\s)\d+(\.\d+){3}' )"
 PLABS_PROXY="192.168.255.13"
 PLABS_PORT="8080"
 
-
 # # #
-
 
 setproxy() {
 cat << EOF > /etc/profile.d/proxy.sh
