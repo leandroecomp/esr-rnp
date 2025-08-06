@@ -198,9 +198,7 @@ if [ "$1" == "master" ]; then
   chown $(id -u):$(id -g) $HOME/.kube/config
 
   # Install Calico CNI plugin
-  # kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.30.2/manifests/calico.yaml
   kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
-
 
   # Create kubeadm join token
   join_command="$( kubeadm token create --print-join-command )"
